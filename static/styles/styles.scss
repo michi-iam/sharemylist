@@ -1,0 +1,62 @@
+
+@import "../bootstrap-5.0.2/scss/functions";
+@import "../bootstrap-5.0.2/scss/variables";
+@import "./variables";
+@import "./einkaufsliste/einkaufsliste";
+
+
+
+@import "../bootstrap-5.0.2/scss/bootstrap";
+
+//in use
+
+body {
+    background-color: rgb(76, 80, 76);
+    
+}
+.baseContentDiv {
+    min-height: 100vh;
+}
+
+.myMainContainer {
+  @extend .pt-5;
+  @extend .pb-5;
+}
+
+.myPageTitle {
+    @extend .rounded;
+    @extend .pt-5;
+    @extend .p-5;
+    @extend .justify-content-center;
+    background-color: $myBgColorPageTitle;
+    color: $myColorPageTitle;
+  }
+
+
+// in use?  
+.myPageSubTitle {
+    @extend .rounded;
+    @extend .mt-3;
+    @extend .p-3;
+    @extend .justify-content-end;
+    background-color: $myBgColorPageSubTitle;
+    color: $myColorPageSubTitle;
+    
+}
+  .myTitle {
+    @extend .rounded;
+    @extend .mt-3;
+    @extend .p-3;
+    background-color: $myBgColorTitle;
+    color: $myColorTitle;
+  }
+  .mySubtitle {
+    @extend .rounded;
+    @extend .mt-2;
+    background-color: $myBgColorSubTitle;
+    color: $myColorSubTitle;
+  }
+  .myText {
+    background-color: $myBgColorText;
+    color: $myColorText;
+  }

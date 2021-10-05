@@ -1,0 +1,45 @@
+{% extends "einkaufsliste/base.html" %}
+
+{% block content %}
+<div class="baseContentDiv">
+    <div class="container myMainContainer">
+        {% include "einkaufsliste/components/pagetitle.html" with title="Listen" subTitle="eingeloggt als "|add:request.user.username %}
+        <div class="row">
+            <div class="col-12 col-lg-6 mt-4 bg-mein-cornflowerblue pb-3">
+                <div class="row mt-4 mt-lg-0">
+                    {% include "einkaufsliste/managelists/maincomponents/availablelists.html" %}
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mt-4 bg-warning pb-3">
+                <div id="showListDiv" class="row mt-4 mt-lg-0">
+                    {% include "einkaufsliste/managelists/maincomponents/liste.html" with entrys=favouriteList %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    jQuery(document).on('click', '.eklGetListBtn', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var categoryId = $(this).attr("categoryId");
+        $.ajax({
+               url: "{% url 'manage_lists_get_list' %}",
+               type: "GET",
+               data:{
+                   categoryId:categoryId,
+               }, success: function(data){
+                   $('#showListDiv').html(data)
+               }
+           });
+    });
+
+
+    
+</script>
+
+{% endblock content %}

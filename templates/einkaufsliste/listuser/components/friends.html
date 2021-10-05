@@ -1,0 +1,12 @@
+<div class="">
+    <h3 class="listUserComponentSubtitle">Deine Freunde</h3>
+    {% for f in friends %}
+        {% if f.user %}
+            <p class="listUserInfo">{{ f }}</p>
+            <button class="btn btn-danger eklDeleteFriendBtn listUserActionBtn" friendId="{{ f.id }}" type="submit">entfernen</button>
+        {% else %}
+            <p class="text-muted">{{ f }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+

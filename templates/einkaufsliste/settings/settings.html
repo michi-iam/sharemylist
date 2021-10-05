@@ -1,0 +1,107 @@
+{% extends "einkaufsliste/base.html" %}
+
+
+
+{% block content %}
+
+<div class="container bg-mein-darkgoldenrod p-4 mt-3 rounded">
+    <div class="row text-center">
+        <h1>Settings</h1>
+        <h4 class="mt-3 text-muted">User: <span class="text-mein-hellblau">{{ Listuser }}</span></h4>
+        <h1 id="settingsMessageField" class="mt-3 text-mein-hellblau bg-dark pt-4 pb-4 d-none"></h1>
+    </div>
+    <div class="row mt-4 ">
+        <div class="row mt-4">
+            <h2 class="text-decoration-underline">Einkaufsliste</h2>
+        </div>
+        <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" value="" id="eklsettingscheckbx" {% if not Listuser.settings.self_delete_only %} checked {% endif %}>
+            <label class="form-check-label" for="eklsettingscheckbx">
+                Freunde können Einträge löschen 
+                <button class="btn btn-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#settingscollapse" aria-expanded="false" aria-controls="settingscollapse">
+                    Info
+                </button>
+            </label>
+        </div>
+        <div class="collapse" id="settingscollapse">
+            <div class="card card-body bg-info bg-gradient fw-bolder">
+                <p>
+                    Wenn nicht aktiviert, kannst <span class="text-mein-hellblau">nur du</span> deine Einträge löschen. <br>
+                    Wenn aktiviert können auch <span class="text-mein-hellblau">deine Freunde</span> deine Einträge löschen.<br>
+                    Default = Nur du kannst löschen.
+      
+                </p>
+            </div>
+          </div>
+    </div>
+    <div class="row mt-4">
+        <div class="row mt-4">
+            <h2 class="text-decoration-underline">Profil</h2>
+        </div>
+        <div class="row mt-3">
+            <form action="universal_change_profile" method="POST">
+                {% csrf_token %}
+                {{ Form }}
+                <button class="btn btn-mein-hellblau mt-2" type="submit">ändern</button>
+            </form>
+        </div>
+        <div class="row mt-3">
+            <div class="row mt-3">
+                <form>
+                 
+                    <label for="newPw1">Neues Passwort:</label>
+                    <input class="form-control" id="id_newPw1" name="newPw1" placeholder="Passwort" type="password">
+                    <label for="newPw1">Passwort bestätigen:</label>
+                    <input class="form-control" id="id_newPw2" name="newPw2" placeholder="Passwort wiederholen" type="password">
+                    <button id="universalChangePwBtn" class="btn btn-mein-hellblau mt-2" type="submit">ändern</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+   
+
+
+</div>
+
+<script>
+    jQuery(document).on('change', '#eklsettingscheckbx', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $.ajax({
+               url: "{% url 'einkaufsliste_change_setting_selfdeleteonly' %}",
+               type: "POST",
+               data:{
+                   csrfmiddlewaretoken: '{{ csrf_token }}',       
+               }, success: function(data){
+                   location.reload();
+               }
+           });
+    });
+    jQuery(document).on('click', '#universalChangePwBtn', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var newPw1 = $('#id_newPw1').val();
+        var newPw2 = $('#id_newPw2').val();
+        $.ajax({
+               url: "{% url 'universal_change_password' %}",
+               type: "POST",
+               data:{
+                   csrfmiddlewaretoken: '{{ csrf_token }}',
+                   newPw1: newPw1,       
+                   newPw2: newPw2,       
+               }, success: function(data){
+                    $('#settingsMessageField').html(data["PW"]);
+                    $('#settingsMessageField').removeClass("d-none");
+                    $('#settingsMessageField')[0].scrollIntoView();
+                   
+               }
+           });
+    });
+
+// meinpw
+// meinpw2
+// me726sdatta
+</script>
+
+{% endblock content %}

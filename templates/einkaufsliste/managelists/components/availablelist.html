@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-auto">
+        <button class="eklGetListBtn btn btn-mein-orange mt-2" categoryId="{{ i.id }}">{{ i.name }} 
+            <span class="text-muted">{{ i.author }}</span>
+        </button>
+    </div>
+    
+    <div class="col-auto">
+        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#avListMod{{ i.id }}">
+            x
+          </button>
+          <div class="modal fade" id="avListMod{{ i.id }}" tabindex="-1" aria-labelledby="avListModLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="avListModLabel">Bearbeiten</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ i }} wirklich löschen?
+                    {% include "einkaufsliste/managelists/components/forms/addnewlist.html" with btnText="Liste ändern" %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-bs-dismiss="modal">nein</button>
+                  <button categoryId="{{ i.id }}" type="button" class="deleteListBtn btn btn-primary">löschen</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+
+
+</div>
+

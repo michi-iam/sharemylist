@@ -1,0 +1,68 @@
+$myBgColorBody: rgb(76, 80, 76);
+
+$myBgColorPageTitle: rgb(86, 248, 221);
+$myBgColorPageSubTitle: rgb(224, 231, 182);
+$myBgColorTitle: rgb(225, 248, 161);
+$myBgColorSubTitle: rgb(247, 238, 199);
+$myBgColorText: rgb(244,240,200);
+
+$myColorPageTitle: rgb(22,22,22);
+$myColorPageSubTitle: rgb(22,22,22);
+$myColorTitle: rgb(22,22,22);
+$myColorSubTitle: rgb(22,22,22);
+$myColorText: rgb(22,22,22);
+$mein-rot:#900;
+$mein-white: #eaf1f1;
+
+$myLinkColor: rgb(0, 139, 173);
+
+$custom-colors: (
+  "mein-rot": $mein-rot,
+  "mein-rot2": rgb(248, 14, 14),
+  "mein-rot3":rgb(70, 4, 4),
+  "mein-white": $mein-white,
+  "mein-ivory":#FFFFF0,
+  "mein-grau": #d6dad5,
+  "mein-silber": #e7fae7,
+  "mein-dunkelgrau": #676967,
+  "mein-green": #77FF22,
+  "mein-darkgreen":#006633,
+  "mein-darkcyan": #008b8b,
+  "mein-lightseagreen": #20B2AA,
+  "mein-darkslategray":#2F4F4F,
+  "mein-hellblau":#9efaee,
+  "mein-cornflowerblue":#6495ED,
+  "mein-cornflowerblue2":#6e9aec,
+  "mein-cornflowerblue3":#7fa4e9,
+  "mein-darkmagenta":#8B008B,
+  "mein-darkgoldenrod": #B8860B,
+  "mein-orange": rgb(222,111,22),
+  "mein-dunkellila": rgb(51, 1, 49),
+
+  
+);
+
+$custom-trans-colors: (
+  "mein-trans-grau": rgba(203, 209, 205, 0.7),
+  "mein-trans-dunkelgrau": rgba(150, 155, 151, 0.7),
+);
+
+$meine-farben: (
+  "mein-rainbow1": red,
+  "mein-rainbow2": orange,
+  "mein-rainbow3": yellow,
+  "mein-rainbow4": green,
+  "mein-rainbow5": blue,
+  "mein-rainbow6": indigo,
+  "mein-rainbow7": violet,
+  "myHigh": rgb(106, 152, 189),
+);
+
+$action-farben: (
+  "mein-link": $myLinkColor,
+);
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $meine-farben);
+$theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors: map-merge($theme-colors, $custom-trans-colors);
+$theme-colors: map-merge($theme-colors, $action-farben);

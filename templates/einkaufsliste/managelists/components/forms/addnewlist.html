@@ -1,0 +1,15 @@
+<form action="{% url 'manage_lists_add_new_list' %}" method="POST">
+    {% csrf_token %}
+    <label for="id_newListName">Name der Liste</label>
+    <input class="form-control" type="text" name="newListName" id="id_newListName" placeholder="Name">
+    <label for="id_newListShared">Liste teilen mit:</label>
+    <select class="form-select" name="newListShared" id="id_newListShared" multiple>
+        {% for f in friends %}
+            <option value="{{ f.id }}">{{ f }}</option>
+        {% endfor %}
+    </select>
+    {% if i %}
+    <input type="hidden" name="oldList" value="{{ i.id }}">
+    {% endif %}
+    <button class="btn btn-info mt-2" type="submit">{{ btnText }}</button>
+</form>

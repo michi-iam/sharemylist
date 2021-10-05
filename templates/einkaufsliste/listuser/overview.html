@@ -1,0 +1,132 @@
+
+
+
+{% extends "einkaufsliste/base.html" %}
+
+{% block content %}
+<div class="baseContenDiv">
+    <div class="container myMainContainer">
+        {% include "einkaufsliste/components/pagetitle.html" with title="Freunde" subTitle="eingeloggt als "|add:request.user.username %}
+        <div class="row mt-5">
+            <div class="col-12 col-lg-4 listUserComponentFriends">
+                {% include "einkaufsliste/listuser/components/friends.html" %}
+            </div>
+            <div class="col-12 col-lg-4 listUserComponentFriendrequests">
+               {% include "einkaufsliste/listuser/components/friendrequests.html" %}
+            </div>
+            <div class="col-12 col-lg-4 listUserComponentSearchfriends">
+                {% include "einkaufsliste/listuser/components/searchfriends.html" %}
+            </div>
+    
+        </div>
+    
+    </div>
+</div>
+
+<script>
+
+    jQuery(document).on('click', '#eklLookupListUserBtn', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var name = $('#id_name').val();
+        $('#eklFriendReqSearchRes').removeClass("d-none")
+        $.ajax({
+            url: "{% url 'einkaufsliste_listuser_lookup' %}",
+            type: "GET",
+            dataType: "json",
+            data:{
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                name:name,
+            }, success: function(data){
+                if(data["res"] === true){
+                    console.log("gefunden")
+                    var username = data["data"]["listUserName"]
+                    var userId = data["data"]["listUserId"]
+                    $("#eklSendFriendReqBtn").attr("listUserId", userId);
+                    var string = "Anfrage an " + username + " versenden"
+                    $('#eklSendFriendReqBtn').html(string)
+                    $("#eklFriendReq").removeClass("d-none")
+                   
+                    
+                   
+                }
+                if(data["res"] === false){
+                    var username = data["data"]["msg"]
+                    $("#eklSendFriendReqBtn").attr("listUserId", "");
+                    $("#eklFriendReq").addClass("d-none")
+                }
+                $('#eklFriendReqSearchRes').html(username);
+            }
+        });
+    });
+
+    
+    
+    jQuery(document).on('click', '#eklSendFriendReqBtn', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var toFriendId = $(this).attr("listUserId");
+        $.ajax({
+               url: "{% url 'einkaufsliste_listuser_send_friend_request' %}",
+               type: "POST",
+               data:{
+                   csrfmiddlewaretoken: '{{ csrf_token }}',
+                   toFriendId:toFriendId,
+               }, success: function(data){
+                   location.reload();
+               }
+           });
+    });
+    
+    
+    jQuery(document).on('click', '.eklAcceptFriendBtn', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var friendRequestId = $(this).attr("friendReqId");
+        $.ajax({
+               url: "{% url 'einkaufsliste_listuser_accept_friend_request' %}",
+               type: "POST",
+               data:{
+                   csrfmiddlewaretoken: '{{ csrf_token }}',
+                   friendRequestId:friendRequestId,
+               }, success: function(data){
+                   
+                   location.reload();
+               }
+           });
+    });
+    jQuery(document).on('click', '.eklDismissAccepted', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var friendRequestId = $(this).attr("friendReqId");
+        $.ajax({
+               url: "{% url 'einkaufsliste_listuser_dismiss_accepted' %}",
+               type: "POST",
+               data:{
+                   csrfmiddlewaretoken: '{{ csrf_token }}',
+                   friendRequestId:friendRequestId,
+               }, success: function(data){
+                   location.reload();
+               }
+           });
+    });
+    jQuery(document).on('click', '.eklDeleteFriendBtn', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var friendId = $(this).attr("friendId");
+        $.ajax({
+               url: "{% url 'einkaufsliste_listuser_delete_friend' %}",
+               type: "POST",
+               data:{
+                   csrfmiddlewaretoken: '{{ csrf_token }}',
+                   friendId:friendId,
+               }, success: function(data){
+                   location.reload();
+               }
+           });
+    });
+</script>
+
+
+
+{% endblock content %}

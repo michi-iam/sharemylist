@@ -1,0 +1,39 @@
+
+
+@mixin listUserComponentMixin {
+    @extend .p-3;
+    @extend .rounded;
+    @extend .shadow;
+}
+
+
+.listUserComponentFriends {
+    @include listUserComponentMixin();
+    background-color: rgb(240, 160, 70);
+
+}
+.listUserComponentFriendrequests {
+    @include listUserComponentMixin();
+    background-color: rgb(201, 133, 57);
+}
+.listUserComponentSearchfriends {
+    @include listUserComponentMixin();
+    background-color: rgb(139, 92, 39);
+}
+
+.listUserComponentSubtitle {
+    @include listUserComponentMixin();
+    background-color: rgb(179, 159, 137);
+}
+
+.listUserActionBtn {
+    @extend .btn;
+    @extend .btn-mein-cornflowerblue;
+}
+
+.listUserInfo {
+    @extend .p-1;
+    @extend .rounded;
+    background-color: rgb(217, 255, 239);
+    border-top-right-radius: 33px;
+}

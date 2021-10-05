@@ -1,0 +1,32 @@
+<div class="">
+    <h3 class="listUserComponentSubtitle">Anfragen an dich</h3>
+    {% for o in openFriendReqsForUser %}
+        {% if o.from_user %}
+            <p class="listUserInfo">von {{ o.from_user }}</p>
+            <button class="btn btn-success eklAcceptFriendBtn" friendReqId="{{ o.id }}" type="submit">akzeptieren</button>
+        {% else %}
+            <p class="text-muted">{{ o }}</p>
+        {% endif %}
+
+    {% endfor %}
+    <h3 class="mt-5 listUserComponentSubtitle">Anfragen von dir</h3>
+    {% for o in openFriendReqsFromUser %}
+        {% if o.from_user %}
+            <p class="listUserInfo">an {{ o.to_user }}</p>
+            <button type="submit" class="eklDismissAccepted listUserActionBtn" friendReqId="{{ o.id }}">zurückziehen</button>
+        {% else %}
+            <p class="text-muted">{{ o }}</p>
+        {% endif %}
+
+    {% endfor %}
+    <h3 class="mt-5 listUserComponentSubtitle">Bestätigte Anfragen</h3>
+    {% for o in acceptedFriendReqs %}
+        {% if o.from_user %}
+            <p class="listUserInfo">{{ o.to_user }} hat deine Anfrage bestätigt</p>
+            <button type="submit" class="eklDismissAccepted listUserActionBtn" friendReqId="{{ o.id }}">gelesen</button>
+        {% else %}
+            <p class="text-muted">{{ o }}</p>
+        {% endif %}
+
+    {% endfor %}
+</div>

@@ -1,0 +1,14 @@
+
+
+<div class="row justify-content-start">
+    <div class="col-auto">
+        <button class="btn btn-mein-hellblau" type="button" data-bs-toggle="collapse" data-bs-target="#newListColla" aria-expanded="false" aria-controls="newListColla">
+            neue Liste erstellen
+          </button>
+    </div>
+</div>
+<div class="collapse mt-2" id="newListColla">  
+    <div class="row">
+        {% include "einkaufsliste/managelists/components/forms/addnewlist.html" with btnText="neue Liste erstellen" %}
+    </div>
+</div>
