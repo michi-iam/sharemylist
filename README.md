@@ -27,3 +27,4 @@ django-project - share your lists (e.g. grocery list) with other users
 * styles :)
 * seperate js from templates
 * refactoring in general
+* add contributing.md - everyone is welcome to contribute
